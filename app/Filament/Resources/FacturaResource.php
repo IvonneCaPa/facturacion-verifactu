@@ -222,13 +222,14 @@ class FacturaResource extends Resource
                             ->send();
                     }),
 
-                // 3. Descargar PDF oficial con QR AEAT
+                // 3. Ver / Descargar PDF oficial con QR AEAT en pestaña nueva
                 Tables\Actions\Action::make('pdf')
                     ->label('PDF')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->color('info')
                     ->visible(fn (Factura $record): bool => $record->estado !== 'borrador')
-                    ->action(fn (Factura $record, PdfInvoiceService $pdfService) => $pdfService->download($record)),
+                    ->url(fn (Factura $record): string => route('facturas.pdf', $record))
+                    ->openUrlInNewTab(),
 
                 // 4. Eliminar solo si es borrador
                 Tables\Actions\DeleteAction::make()
