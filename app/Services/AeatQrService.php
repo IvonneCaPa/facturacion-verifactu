@@ -9,9 +9,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 final class AeatQrService
 {
-    /**
-     * Construye la URL oficial de cotejo exigida por el Reglamento Veri*Factu.
-     */
     public function buildVerificationUrl(Factura $factura, bool $entornoPruebas = true): string
     {
         $baseUrl = $entornoPruebas
@@ -28,9 +25,6 @@ final class AeatQrService
         return "{$baseUrl}?{$params}";
     }
 
-    /**
-     * Renderiza el código QR en formato SVG (ideal para Blade y Dompdf sin perder nitidez).
-     */
     public function generateSvgQr(string $qrUrl, int $size = 140): string
     {
         return (string) QrCode::format('svg')
